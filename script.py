@@ -14,7 +14,6 @@ def encode_image_to_base64(image: Image.Image) -> str:
     image.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-image_path = "./apples.png"
 
 def get_gpt4_detections(image_path, classname):
     image = Image.open(image_path)
@@ -93,9 +92,6 @@ def get_gpt4_detections(image_path, classname):
     json_end = response_msg.find("```", json_start + 6)
     json_content = response_msg[json_start + 7:json_end].strip()
 
-    print("BERFORE: ", response_msg)
-    print("HIIII: ", json_content)
-
     return json_content
 
 
@@ -126,6 +122,8 @@ def visualize_detection(detections, image_path):
     plt.close(fig)
 
 
-bounding_boxes = get_gpt4_detections(image_path, "apple")
+image_path = "/Users/kellylu/Startup/Experiments/gpt-4v-gt/images/girls.jpg"
+
+bounding_boxes = get_gpt4_detections(image_path, "girl")
 
 visualize_detection(bounding_boxes, image_path)
